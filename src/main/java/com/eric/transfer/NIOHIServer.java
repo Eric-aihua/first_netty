@@ -37,6 +37,7 @@ public class NIOHIServer {
             while (iterator.hasNext()) {
                 SelectionKey key = iterator.next();
                 iterator.remove();
+
                 try {
                     if (key.isAcceptable()) {
                         ServerSocketChannel server =
@@ -45,6 +46,11 @@ public class NIOHIServer {
                         client.configureBlocking(false);
                         client.register(selector, SelectionKey.OP_WRITE |
                                 SelectionKey.OP_READ, msg.duplicate());
+                        try {
+                            Thread.sleep(1);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
 //                        System.out.println("Accepted connection from " + client);
                     }
                     if (key.isWritable()) {

@@ -38,6 +38,8 @@ public class NettyNIOHIServer {
                                         public void channelActive(
                                                 ChannelHandlerContext ctx)
                                                 throws Exception {
+//                                            System.out.println(ctx.channel().remoteAddress());
+                                            Thread.sleep(1);
                                             ctx.writeAndFlush(buf.duplicate())
                                                     .addListener(
                                                             ChannelFutureListener.CLOSE);

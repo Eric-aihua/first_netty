@@ -19,13 +19,17 @@ public class OIOHIServer {
         try {
             for (;;) {
                 final Socket clientSocket = socket.accept();
-                System.out.println(
-                        "Accepted connection from " + clientSocket);
+//                System.out.println("Accepted connection from " + clientSocket);
                 new Thread(new Runnable() {
                     public void run() {
                         OutputStream out;
                         try {
                             out = clientSocket.getOutputStream();
+                            try {
+                                Thread.sleep(1);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
                             out.write("Hi!\r\n".getBytes(Charset.forName("UTF-8")));
                             out.flush();
                             clientSocket.close();
@@ -52,7 +56,7 @@ public class OIOHIServer {
 
     public static void main(String args[]){
         try {
-            new OIOHIServer().serve(8080);
+            new OIOHIServer().serve(8888);
         } catch (IOException e) {
             e.printStackTrace();
         }
